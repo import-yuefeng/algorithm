@@ -1,0 +1,39 @@
+package main
+
+import "fmt"
+
+func main() {
+	weight := []int{2, 2, 6, 5, 4}
+	value := []int{6, 3, 5, 4, 6}
+	maxWeight := 10
+
+	res := Backage01(weight, value, maxWeight)
+	fmt.Println(res)
+}
+
+func Backage01(weightArray []int, valueArray []int, maxWeight int, numbers int) (maxValue int) {
+	dp := make([][]int, numbers)
+    for i := 0; i < numbers; i++ {
+        dp[i] = make([]int, maxWeight+1)
+    }
+    for i:=0; i<number; i++ {
+        dp[i][0] = 0
+    }
+    for i:=0; i<maxWeight; i++ {
+        dp[0][i] = 0
+    }
+    for i:=1; i<=numbers; i++ {
+        for j:=1; j<=maxWeight; j++ {
+            if j < weightArray[i-1] {
+                dp[i][j] = dp[i-1][j]
+            }
+        }
+    }
+}
+
+func Max(a, b int) int {
+	if a >= b {
+		return a
+	}
+	return b
+}

@@ -1,0 +1,1 @@
+	// h.array[parent] = tmp
