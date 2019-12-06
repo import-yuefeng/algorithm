@@ -174,6 +174,7 @@ func (h *MinHeap) downHeap(parent int) {
 	child := parent*2 + 1
 	for child < len(array) {
 		if child+1 < len(array) && array[child] > array[child+1] {
+			// find min child
 			child++
 		}
 		if array[child] > array[parent] {

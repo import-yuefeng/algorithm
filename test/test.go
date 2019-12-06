@@ -4,11 +4,19 @@ import (
 	"errors"
 	"fmt"
 	"math"
+	"math/rand"
+	"time"
 )
 
 var coins = [...]int{1, 2, 5}
 
 func main() {
+	rand.Seed(time.Now().Unix())
+	var array [100]int
+	for i := 0; i < 100; i++ {
+		array[i] = rand.Intn(200)
+	}
+	fmt.Println(array)
 	// res := coinChangeOne(11)
 	// back := make([]int, 12)
 	// for i, _ := range back {
@@ -81,15 +89,15 @@ func main() {
 	// 	}
 	// }
 	// return
-	a := (-10 - 128) >> 31
-	b := (2000 - 128) >> 31
-	PrintBit(a)
-	fmt.Println()
-	PrintBit(b)
-	fmt.Println()
-	PrintBit(^a & 1024)
-	fmt.Println()
-	PrintBit(^b & 1024)
+	// a := (-10 - 128) >> 31
+	// b := (2000 - 128) >> 31
+	// PrintBit(a)
+	// fmt.Println()
+	// PrintBit(b)
+	// fmt.Println()
+	// PrintBit(^a & 1024)
+	// fmt.Println()
+	// PrintBit(^b & 1024)
 
 	// PrintBit(8)
 
