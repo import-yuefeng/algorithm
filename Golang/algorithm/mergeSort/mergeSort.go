@@ -8,26 +8,28 @@ import (
 
 func main() {
 	rand.Seed(time.Now().Unix())
-	var array [100]int
-	for i := 0; i < 100; i++ {
-		array[i] = rand.Intn(200)
+	var array [10000000]int
+	for i := 0; i < 10000000; i++ {
+		array[i] = rand.Intn(100000000)
 	}
 	fmt.Println(array)
 	// Reverse(array[:], 0, len(array)-1)
-	Convert(array[:], 0, 3, 6)
-	// mergeSort2(array[:], 0, len(array)-1)
+	// Convert(array[:], 0, 3, 6)
+	mergeSort2(array[:], 0, len(array)-1)
 	fmt.Println(array)
 }
 
 func mergeSort2(array []int, left, right int) {
-	if left >= right {
-		return
+	if left < right {
+		middle := (left + right) >> 1
+		mergeSort2(array, left, middle)
+		mergeSort2(array, middle+1, right)
+		merge2(array, left, middle, right)
+		// res := mergeGo(left, middle, right, array)
+		// for l, v := range res {
+		// 	array[l] = v
+		// }
 	}
-	middle := (left + right) >> 1
-	mergeSort2(array, left, middle)
-	mergeSort2(array, middle+1, right)
-	merge2(array, left, middle, right)
-	return
 }
 
 func merge4(array []int, left, middle, right int) {
@@ -73,7 +75,6 @@ func merge2(array []int, left, middle, right int) {
 			tmp[c] = array[a]
 			a++
 		}
-
 	}
 	for a <= middle {
 		tmp[c] = array[a]
@@ -116,5 +117,21 @@ func merge(left, right []int) (result []int) {
 	}
 	result = append(result, left[l:]...)
 	result = append(result, right[r:]...)
+	return
+}
+
+func mergeGo(left, middle, right int, nums []int) (result []int) {
+	l, r := left, middle
+	for l < middle && r <= right {
+		if nums[l] < nums[r] {
+			result = append(result, nums[l])
+			l++
+		} else {
+			result = append(result, nums[r])
+			r++
+		}
+	}
+	result = append(result, nums[l:middle]...)
+	result = append(result, nums[r:]...)
 	return
 }
