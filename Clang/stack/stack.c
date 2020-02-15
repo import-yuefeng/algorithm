@@ -40,8 +40,6 @@ int Push(Stack* s, int x) {
     s->top++;
     s->data[s->top] = x;
     s->size++;
-    // printf("size: %d\n", s->size);
-    // printArray(s->data, s->size);
     return x;
 }
 

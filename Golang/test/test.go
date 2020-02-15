@@ -139,3 +139,92 @@ func (s *Stack) Pop() (x interface{}, err error) {
 	s.size--
 	return
 }
+
+
+package main
+
+import(
+	"fmt"
+	"math"
+)
+
+func main(){
+	// res := A(4294967293)
+	// res := hammingWeight(4294967293)
+	var a uint32 = 513
+	
+	for i:=0; i<=31; i++ {
+		if a<<uint32(i) & 0x80000000 == 1 {
+			fmt.Println(32-i)
+			break
+		}
+	}
+	C([]int{1, 2, 3, 4})
+	myB := []byte{'0', '0', '0', '0', '0'}
+	Q(myB, len(myB), 0)
+	// res := B(513)
+	// fmt.Println(res)
+}
+
+func C(num []int) {
+	array := make([][]int, 0)
+	for start:=0; start<len(num); start++ {
+		array = append(array, []int{})
+		for i:=start; i<len(num); i++ {
+			array[start] = append(array[start], num[i])
+		}
+		for end:=0; end<start; end++ {
+			array[start] = append(array[start], num[end])
+		}
+	}
+	fmt.Println(array)
+}
+
+func B(number uint32) int {
+	count := 0
+	var t uint32 = 1
+	for i:=0; i<32; i++ {
+		if (number & t) == 1 {
+			count++
+		}
+		number >>= 1
+	}
+	return count
+}
+
+func hammingWeight(number uint32) int {
+	if res, ok := numberPow(number); ok {
+		return 1
+	} else {
+		tmp := math.Pow(2.0, float64(res))
+		t := 1 + hammingWeight(number-uint32(tmp))
+		return t
+	}
+}
+
+func Q(num []byte, length int, index int) {
+	if index == length {
+		fmt.Println(string(num))
+		return
+	} else {
+		for i:=0; i<10; i++ {
+			num[index] = byte(i) + '0'
+			Q(num, length, index+1)
+		}
+	}
+}
+
+func numberPow(number uint32) (count int, isExist bool) {
+	var t uint32 = 1
+	count = 0
+	for number > t {
+		t *= 2
+		count++
+	}
+	if t > number {
+		count -= 1
+		t /= 2
+		return count, false
+	}
+	return count, true
+}

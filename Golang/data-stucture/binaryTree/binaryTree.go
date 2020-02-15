@@ -12,6 +12,7 @@ type Stack struct {
 	stackArray []*BinaryTree
 }
 
+
 func (stack *Stack) Init(capacity int) error {
 	if capacity <= 0 {
 		return errors.New("capacity invaild")
@@ -296,30 +297,28 @@ func EndPrintRecursive(bt *BinaryTree) {
 	fmt.Printf("%d ", bt.value)
 }
 
-func (bt *BinaryTree) FirstPrint() {
-	if bt.size == 0 {
-		return
-	}
-	stack := new(Stack)
-	stack.Init(bt.size)
-	tmpBinTree := bt
-	for tmpBinTree != nil || !stack.isEmpty() {
-		if tmpBinTree != nil {
-			fmt.Printf("%d ", tmpBinTree.value)
-			if err := stack.Push(tmpBinTree); err != nil {
-				fmt.Println(err)
-				break
-			}
-			tmpBinTree = tmpBinTree.left
-		} else if !stack.isEmpty() {
-			value, _ := stack.Pop()
-			if value.right != nil {
-				tmpBinTree = value.right
-			}
-		}
-	}
-	fmt.Println()
-}
+// func (bt *BinaryTree) FirstPrint() {
+// 	if bt.size == 0 {
+// 		return
+// 	}
+// 	stack := new(Stack)
+// 	stack.Init(bt.size)
+// 	tmpBinTree := bt
+// 	for tmpBinTree != nil || !stack.isEmpty() {
+// 		if tmpBinTree != nil {
+// 			fmt.Printf("%d ", tmpBinTree.value)
+// 			tmpBinTree = tmpBinTree.Left
+// 		} else {
+// 			t, err := stack.Pop()
+// 			if err != nil {
+// 				fmt.Println(err)
+// 				return
+// 			}
+// 			tmpBinTree = t.Right
+// 		}
+// 	}
+// 	fmt.Println()
+// }
 
 func (bt *BinaryTree) MiddlePrint() {
 	if bt.size == 0 {
@@ -429,8 +428,9 @@ func main() {
 	// 		a.FirstPrint()
 	// 	}
 	// }
-	a.FirstPrint()
-	a.LevelPrint()
+	// a.FirstPrint()
+	// a.LevelPrint()
+	inOrderTraverse(a)
 	// maxValue := findMaxElement(a)
 	// fmt.Println(maxValue)
 	// minValue := findMinElement(a)
@@ -446,4 +446,29 @@ func main() {
 	// EndPrintRecursive(a)
 	// fmt.Println()
 
+}
+
+func inOrderTraverse(cur *BinaryTree) {
+    for cur != nil {
+        if cur.left == nil {
+			fmt.Println(cur.value) // 如果当前节点的左子树为空，那当然可以打印当前节点
+			cur = cur.right
+        } else {
+            tmp := cur.left
+            for tmp.right != nil && tmp.right != cur {
+                // 遍历 tmp的左子树，找到左子树的最右边的叶子节点
+                tmp = tmp.right
+            }
+            if tmp.right == nil { // 此时时第一次访问最右边的节点
+                tmp.right = cur // 那么我们就记下往cur走的指针
+                // 接着进一步进入 cur 的左子树中
+                cur = cur.left
+            } else {
+				// 此时说明之前已经遍历到这，那么
+				tmp.right = nil
+				fmt.Printf("%d ", cur.value)
+				cur = cur.right
+            }
+        }
+    }
 }
