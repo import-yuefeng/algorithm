@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	testVal := []int{1, 5, 5, 2, 3, 5, 3, 2}
+	testVal := []int{1, 5, 5, 2, 3, 5, 3, 2, 1444, 123212312434, 12412, 4242}
 	// BubblingSort(testVal)
 	// SelectSort(testVal)
 	// InsertSort(testVal)
@@ -14,7 +14,9 @@ func main() {
 	// MergeSort(testVal, 0, len(testVal)-1)
 	// ShellSort(testVal)
 	// HeapSort(testVal)
-	CountSort(testVal)
+	// CountSort(testVal)
+	// RadixSort(testVal)
+	qSort_2(testVal, 0, len(testVal)-1)
 	fmt.Println(testVal)
 }
 
@@ -256,5 +258,118 @@ func CountSort(num []int) {
 			v--
 			p++
 		}
+	}
+}
+
+func RadixSort(num []int) {
+	bucket := make([]*Queue, 10)
+	for i, _ := range bucket {
+		bucket[i] = NewQueue(len(num))
+	}
+	maxVal := -1 << 31
+	for _, v := range num {
+		if maxVal < v {
+			maxVal = v
+		}
+	}
+	maxValLength := 0
+	for maxVal != 0 {
+		maxVal /= 10
+		maxValLength++
+	}
+	tmp := make([]int, len(num))
+	copy(tmp, num)
+	for i := 1; i <= maxValLength; i++ {
+		for _, v := range tmp {
+			bucket[GetCurBit(v, i)].Push(v)
+		}
+		count := 0
+		for _, v := range bucket {
+			for !v.IsEmpty() {
+				val, _ := v.Pop()
+				tmp[count] = val
+				count++
+			}
+		}
+	}
+	copy(num, tmp)
+}
+
+func GetCurBit(val, bit int) int {
+	divisor := 1
+	for bit > 1 {
+		divisor *= 10
+		bit--
+	}
+	return val / divisor % 10
+}
+
+type Queue struct {
+	rare, front int
+	data        []int
+	size        int
+	capacity    int
+}
+
+func NewQueue(capacity int) *Queue {
+	return &Queue{
+		front:    0,
+		rare:     0,
+		data:     make([]int, capacity),
+		size:     0,
+		capacity: capacity,
+	}
+}
+
+func (q *Queue) IsEmpty() bool {
+	return q.rare == q.front
+}
+
+func (q *Queue) IsFull() bool {
+	return (q.rare+1)%q.capacity == q.front
+}
+
+func (q *Queue) Push(x int) error {
+	if q.IsFull() {
+		return errors.New("Queue is full")
+	}
+	q.data[q.rare] = x
+	q.rare = (q.rare + 1) % q.capacity
+	q.size++
+	return nil
+}
+
+func (q *Queue) Pop() (x int, err error) {
+	if q.IsEmpty() {
+		return -1, errors.New("Queue is empty")
+	}
+	x = q.data[q.front]
+	q.front = (q.front + 1) % q.capacity
+	q.size--
+	return x, nil
+}
+
+func qSort_2(num []int, left, right int) {
+	if left < right && left >= 0 {
+		mid := num[(left+right)>>1]
+		l, r := left, left+1
+		for r <= right {
+			for l <= r && num[l] < mid {
+				l++
+			}
+			for r <= right && num[r] > mid {
+				r++
+			}
+			if r > right {
+				break
+			}
+			if num[l] == num[r] && num[r] == mid {
+				r++
+			} else {
+				num[l], num[r] = num[r], num[l]
+			}
+		}
+		qSort(num, left, l-1)
+		qSort(num, l, right)
 	}
 }
