@@ -7,6 +7,8 @@ import (
 )
 
 func main() {
+	res := StringFmt()
+	fmt.Println(res)
 }
 
 func StringPlus() string {
@@ -18,6 +20,16 @@ func StringPlus() string {
 }
 
 func StringFmt() string {
+	var a interface{} = "234"
+	switch a.(type) {
+	case string:
+		fmt.Println(a, "string")
+	case *int:
+		fmt.Println("int")
+	default:
+		fmt.Println("none")
+	}
+
 	return fmt.Sprint("hello", "world", "你好", "世界")
 }
 

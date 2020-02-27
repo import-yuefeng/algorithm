@@ -9,9 +9,10 @@ func main() {
 	// a := []int{}
 	b := []int{3, 5, 6, 6, 7, 9}
 	// b := []int{}
-	res := make([]int, 0)
+	// res := make([]int, 0)
 	// res := LCS_3(a, b)
-	LCS_4(a, b, &res)
+	// LCS_4(a, b, &res)
+	res := LCS_5(a, b)
 	fmt.Println(res)
 }
 
@@ -30,7 +31,6 @@ func LCS_1(a, b []int) (res []int) {
 	}
 	return
 }
-
 
 func LCS_2(a, b []int) (res []int) {
 	for _, v := range a {
@@ -63,20 +63,34 @@ func LCS_4(a, b []int, res *[]int) {
 		}
 		LCS_4(a[1:], b, res)
 	}
-	return 
+	return
+}
+
+func LCS_5(a, b []int) (res []int) {
+	repeat := make(map[int]bool)
+	for _, v := range a {
+		repeat[v] = true
+	}
+	for _, v := range b {
+		if t, ok := repeat[v]; ok && t {
+			repeat[v] = false
+			res = append(res, v)
+		}
+	}
+	return res
 }
 
 func BinarySearchByIterate(num []int, left, right int, target int) (res int) {
 	// not found return -1
 	l, r := left, right
-	for l<=r {
-		mid := l + ((r-l)>>1)
+	for l <= r {
+		mid := l + ((r - l) >> 1)
 		if num[mid] == target {
 			return mid
 		} else if num[mid] > target {
-			r = mid-1
+			r = mid - 1
 		} else {
-			l = mid+1
+			l = mid + 1
 		}
 	}
 	return -1
@@ -86,7 +100,7 @@ func BinarySearchByRecursive(num []int, left, right, target int) (res int) {
 	// not found return -1
 	if left <= right {
 		l, r := left, right
-		mid := l + ((r-l)>>1)
+		mid := l + ((r - l) >> 1)
 		if num[mid] == target {
 			return mid
 		} else if num[mid] > target {
