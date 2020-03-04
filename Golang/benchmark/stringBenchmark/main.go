@@ -3,12 +3,18 @@ package main
 import (
 	"bytes"
 	"fmt"
+	"math/rand"
 	"strings"
+	"time"
 )
 
 func main() {
-	res := StringFmt()
-	fmt.Println(res)
+	// res := StringFmt()
+	// fmt.Println(res)
+	// res := make(map[int]int)
+	// for i := 0; i < 100000; i++ {
+	tmp := RandomSelectNumber(3)
+	fmt.Println(tmp)
 }
 
 func StringPlus() string {
@@ -55,3 +61,20 @@ func StringBuilder() string {
 	a.WriteString("世界")
 	return a.String()
 }
+
+func RandomSelectNumber(k int) []int {
+	rawList := []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+	res := make([]int, k)
+	for i := 0; i < k; i++ {
+		res[i] = rawList[i]
+	}
+	for i := k; i < len(rawList); i++ {
+		rand.Seed(time.Now().Unix())
+		t := rand.Intn(i + 1)
+		if t < k {
+			res[t] = rawList[i]
+		}
+	}
+	return res
+}
+

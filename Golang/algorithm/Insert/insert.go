@@ -2,13 +2,13 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
 )
 
 func main() {
 	var a = [10]int{2, 5, 1, 10, 2, 4, 3, 2, 3, 7}
-	// rand.Seed(time.Now().Unix())
 	// for i := 0; i < 100; i++ {
-	// 	a[i] = rand.Intn(100)
+	a[i] = rand.Intn(100)
 	// }
 
 	fmt.Println(a)

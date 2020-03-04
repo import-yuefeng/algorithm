@@ -10,18 +10,18 @@ func main() {
 	// BubblingSort(testVal)
 	// SelectSort(testVal)
 	// InsertSort(testVal)
-	// qSort(testVal, 0, len(testVal)-1)
+	qSort(testVal, 0, len(testVal)-1)
 	// MergeSort(testVal, 0, len(testVal)-1)
 	// ShellSort(testVal)
 	// HeapSort(testVal)
 	// CountSort(testVal)
 	// RadixSort(testVal)
-	qSort_2(testVal, 0, len(testVal)-1)
+	// qSort_2(testVal, 0, len(testVal)-1)
 	fmt.Println(testVal)
 }
 
 func BubblingSort(num []int) {
-	for i := 0; i < len(num)-1; i++ {
+	for i := 0; i < len(num); i++ {
 		for j := 0; j < len(num)-1-i; j++ {
 			if num[j] > num[j+1] {
 				num[j] ^= num[j+1]
@@ -30,28 +30,27 @@ func BubblingSort(num []int) {
 			}
 		}
 	}
+
 }
 
 func SelectSort(num []int) {
-	for i := 0; i < len(num)-1; i++ {
+	for i := 0; i < len(num); i++ {
 		minVal := num[i]
-		minValIndex := i
+		minIndex := i
 		for j := i; j < len(num); j++ {
-			if minVal > num[j] {
+			if num[j] < minVal {
 				minVal = num[j]
-				minValIndex = j
+				minIndex = j
 			}
 		}
-		num[i], num[minValIndex] = num[minValIndex], num[i]
+		num[minIndex], num[i] = num[i], num[minIndex]
 	}
 }
 
 func InsertSort(num []int) {
 	for i := 0; i < len(num); i++ {
 		for j := i; j > 0 && num[j] < num[j-1]; j-- {
-			num[j] += num[j-1]
-			num[j-1] = num[j] - num[j-1]
-			num[j] -= num[j-1]
+			num[j], num[j-1] = num[j-1], num[j]
 		}
 	}
 }
@@ -248,7 +247,7 @@ func CountSort(num []int) {
 	length := max - min + 1
 	array := make([]int, length)
 	for _, v := range num {
-		array[v-min] += 1
+		array[v-min]++
 	}
 	p := 0
 	for i, v := range array {

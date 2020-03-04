@@ -47,16 +47,37 @@ func ReverseLinkedlsitNodeByIterate(root *LinkedlistNode) *LinkedlistNode {
 }
 
 func ReverseLinkedlistNodeByRecursive(cur *LinkedlistNode) *LinkedlistNode {
-
 	if cur == nil || cur.Next == nil {
 		return cur
 	}
-	r := ReverseLinkedlistNodeByRecursive(cur.Next)
-	cur.Next.Next = cur
-	// 下一个节点的指针指向自己
-	cur.Next = nil
-	// 将自己指向空
-	return r
+	var last *LinkedlistNode = ReverseLinkedlistNodeByRecursive(cur.Next)
+	// 找到最后一个节点
+	head.Next.Next = head
+	// 将 head 的下一个节点的 next 指针指向自己, 用于反转自身
+	head.Next = nil
+	// 将自身的 Next 转为空, 是为了防止出现死循环
+	return last
+}
+
+func ReverseLinkedlistKtdNodeByRecursive(cur *LinkedlistNode, successor *LinkedlistNode, k int) *LinkedlistNode {
+	if k == 1 {
+		successor = cur.Next
+		return cur
+	}
+	last := ReverseLinkedlistKtdNodeByRecursive(cur.Next, successor, k-1)
+	head.Next.Next = head
+	head.Next = successor
+	return last
+}
+
+func ReverseLinkedlistM2NNodeByRecursive(cur *LinkedlistNode, m, n int) *LinkedlistNode {
+	if cur == nil {
+		return nil
+	}
+	if m == 1 {
+		return ReverseLinkedlistKtdNodeByRecursive(cur, m, n)
+	}
+	return ReverseLinkedlistM2NNodeByRecursive(cur.Next, m-1, n-1)
 }
 
 func PrintLinkedlist(root *LinkedlistNode) {

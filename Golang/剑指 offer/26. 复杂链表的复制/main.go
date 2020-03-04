@@ -36,3 +36,41 @@ func CloneLinkedlist(root *ComplexLinkedlist) *ComplexLinkedlist {
 	}
 	return res
 }
+
+func CloneNode(head *ComplexLinkedlist) {
+	cur := root
+	for cur != nil {
+		node := new(ComplexLinkedlist)
+		node.Val = cur.Val
+		node.Next = cur.Next
+		cur.Next = node
+		cur = node.Next
+	}
+	return
+}
+
+func ConnectRandomNode(head *ComplexLinkedlist) {
+	cur := root
+	t := root.Next
+	for cur != nil && t != nil {
+		t.Random = cur.Random.Next
+		cur = t.Next
+		t = cur.Next
+	}
+	return
+}
+
+func ReconnectLinkedlist(head *ComplexLinkedlist) *ComplexLinkedlist {
+	res := head.Next
+	i := res
+	for i != nil {
+		t := i.Next
+		if t == nil {
+			return res
+		}
+		t = t.Next
+		i.Next = t
+		i = t
+	}
+	return res
+}

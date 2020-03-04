@@ -33,6 +33,7 @@ func main() {
 	// 	}
 	// }
 	// A()
+	fmt.Println(1 ^ 2 ^ 2 ^ 3 ^ 4 ^ 2 ^ 3 ^ 4 ^ 1)
 	for i := 1; i <= 7; i++ {
 		num := []int{2, 4, 78, 3, 1, 25, 345}
 		res := quickSelect(num, 0, len(num)-1, i)

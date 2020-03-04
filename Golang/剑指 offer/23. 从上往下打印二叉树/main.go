@@ -19,7 +19,10 @@ func main() {
 	root.Left.Right = &BinaryTreeNode{val: 7}
 	root.Right.Left = &BinaryTreeNode{val: 9}
 	root.Right.Right = &BinaryTreeNode{val: 11}
-	ZBFS(root)
+	// ZBFS(root)
+	res := make([][]int, 1)
+	ZBFSByRecursive(root, &res, 0)
+	fmt.Println(res)
 }
 
 func ZBFS(root *BinaryTreeNode) {
@@ -61,6 +64,23 @@ func ZBFS(root *BinaryTreeNode) {
 			fmt.Println(res[i])
 		}
 	}
+}
+
+func ZBFSByRecursive(root *BinaryTreeNode, res *[][]int, level int) {
+	if root == nil {
+		return
+	}
+	if len(*res) <= level {
+		*res = append(*res, []int{})
+	}
+	(*res)[level] = append((*res)[level], root.val)
+	if root.Left != nil {
+		ZBFSByRecursive(root.Left, res, level+1)
+	}
+	if root.Right != nil {
+		ZBFSByRecursive(root.Right, res, level+1)
+	}
+	return
 }
 
 func reverse(num []int) {

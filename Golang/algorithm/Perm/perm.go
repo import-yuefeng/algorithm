@@ -3,11 +3,13 @@ package main
 
 import (
 	"fmt"
+	"runtime"
 )
 
 var array []int = []int{1, 2, 3, 3}
 
 func main() {
+	runtime.GC()
 	check := make([]int, len(array))
 	perm([]int{}, len(array), check)
 }
