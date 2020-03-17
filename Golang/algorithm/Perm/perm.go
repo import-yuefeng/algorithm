@@ -6,7 +6,7 @@ import (
 	"runtime"
 )
 
-var array []int = []int{1, 2, 3, 3}
+var array []int = []int{1, 2, 3}
 
 func main() {
 	runtime.GC()
@@ -22,9 +22,9 @@ func perm(now []int, end int, check []int) {
 			if check[i] == 1 {
 				continue
 			}
-			if i > 0 && array[i] == array[i-1] && check[i-1] == 1 {
-				continue
-			}
+			// if i > 0 && array[i] == array[i-1] && check[i-1] == 1 {
+			// 	continue
+			// }
 			check[i] = 1
 			now = append(now, array[i])
 			perm(now, end, check)

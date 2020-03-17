@@ -105,7 +105,7 @@ func isBSTByMorris(root *BST) bool {
 
 	}
 }
-\
+
 func isBST3(root *BST) bool {
 	stack := NewStack()
 	isV := make(map[*BST]struct{})

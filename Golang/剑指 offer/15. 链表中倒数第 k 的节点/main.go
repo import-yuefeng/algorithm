@@ -36,7 +36,7 @@ func main() {
 
 func kNumInLinkedlist(root *LinkListNode, k int) (res *LinkListNode, err error) {
 	if root == nil {
-		return nil, errors.New("invaild")
+		return nil, errors.New("invalid")
 	}
 	fast := root
 	for fast != nil && k > 0 {
@@ -44,7 +44,7 @@ func kNumInLinkedlist(root *LinkListNode, k int) (res *LinkListNode, err error) 
 		k--
 	}
 	if k > 0 || k < 0 {
-		return nil, errors.New("invaild")
+		return nil, errors.New("invalid")
 	}
 	slow := root
 	for fast != nil {

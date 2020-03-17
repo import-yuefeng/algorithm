@@ -6,9 +6,8 @@ import (
 )
 
 func main() {
-	res := ReverseString("   www    baidu com")
+	res := ReverseString("the sky is blue")
 	fmt.Println(res)
-
 }
 
 func ReverseString(a string) string {

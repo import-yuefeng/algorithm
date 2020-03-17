@@ -64,6 +64,7 @@ func (s *Stack) Pop() (x interface{}, err error) {
 }
 
 func FindPath(root *BinaryTreeNode, stack *Stack, curSum int, target int) {
+	// 基于先根遍历可得
 	if root == nil {
 		return
 	}
