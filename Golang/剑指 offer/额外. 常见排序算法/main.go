@@ -10,8 +10,8 @@ func main() {
 	// BubblingSort(testVal)
 	// SelectSort(testVal)
 	// InsertSort(testVal)
-	qSort(testVal, 0, len(testVal)-1)
-	// MergeSort(testVal, 0, len(testVal)-1)
+	// qSort(testVal, 0, len(testVal)-1)
+	MergeSort(testVal, 0, len(testVal)-1)
 	// ShellSort(testVal)
 	// HeapSort(testVal)
 	// CountSort(testVal)
@@ -108,11 +108,11 @@ func Merge(num []int, left, mid, right int) {
 	for p2 > mid {
 		if num[p2] < num[p1] {
 			num[p2], num[p1] = num[p1], num[p2]
+			for i := mid; i > left && num[i] < num[i-1]; i-- {
+				num[i-1], num[i] = num[i], num[i-1]
+			}
 		}
 		p2--
-		for i := mid; i > left && num[i] < num[i-1]; i-- {
-			num[i-1], num[i] = num[i], num[i-1]
-		}
 	}
 }
 
