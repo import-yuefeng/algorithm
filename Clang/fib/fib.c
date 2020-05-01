@@ -4,6 +4,9 @@ void main()
 {
     // int res = fib_1(100);
     // printf("%d\n", res);
+    char c = '1';
+    char *p = &c;
+    printf("%p\n", p);
     int array[100];
     for (int i; i < 100; i++)
     {

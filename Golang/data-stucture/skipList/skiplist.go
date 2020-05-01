@@ -2,6 +2,7 @@ package main
 
 import (
 	"errors"
+	"fmt"
 	"math/rand"
 )
 
@@ -57,14 +58,14 @@ func (sk *SkipList) Search(score float64) (res *Node, err error) {
 	if x != nil && x.Score == score {
 		return x, nil
 	}
-	return nil, errors.New("Not find")
+	return nil, errors.New("Not found")
 }
 
 func (sk *SkipList) Insert(score float64, val interface{}) {
 	x := sk.header
 	update := make([]*Node, sk.maxLength)
 	for i := sk.level - 1; i >= 0; i-- {
-		for x.forward[i] != nil && x.forward[i].Score > score {
+		for x.forward[i] != nil && x.forward[i].Score < score {
 			x = x.forward[i]
 		}
 		update[i] = x
@@ -115,16 +116,15 @@ func (sk *SkipList) Delete(score float64) {
 
 func main() {
 	// fmt.Println("hello world")
-	// skipList := NewSkipList(16)
-	// skipList.Insert(10, 10)
-	// skipList.Insert(4, 4)
-	// skipList.Insert(2, 2)
-	// if res, err := skipList.Search(2); err != nil {
-	// 	fmt.Println(err)
-	// } else {
-	// 	if t, ok := res.Val.(int); ok {
-	// 		fmt.Println(t)
-	// 	}
-	// }
-	// A()
+	skipList := NewSkipList(16)
+	skipList.Insert(10, 10)
+	skipList.Insert(4, 4)
+	skipList.Insert(2, 2)
+	if res, err := skipList.Search(2); err != nil {
+		fmt.Println(err)
+	} else {
+		if t, ok := res.Val.(int); ok {
+			fmt.Println(t)
+		}
+	}
 }
